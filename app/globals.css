@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ==========================
+   CONREV DESIGN SYSTEM
+========================== */
+
+:root {
+
+  /* Colores */
+
+  --color-primary: #0B5E8E;
+  --color-primary-dark: #094c73;
+
+  --color-background: #ffffff;
+  --color-background-light: #F8FAFC;
+
+  --color-text: #1E293B;
+  --color-text-light: #64748B;
+
+}
+
+/* ==========================
+   ESTILOS GENERALES
+========================== */
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+body {
+
+  background: var(--color-background);
+
+  color: var(--color-text);
+
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+
+}
+
+/* ==========================
+   SELECCIÓN DE TEXTO
+========================== */
+
+::selection {
+
+  background: var(--color-primary);
+
+  color: white;
+
+}
+
+/* ==========================
+   IMÁGENES
+========================== */
+
+img {
+
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+
+}
+
+/* ==========================
+   ENLACES
+========================== */
+
+a {
+
+  text-decoration: none;
+
+}
+
+/* ==========================
+   BOTONES
+========================== */
+
+button {
+
+  cursor: pointer;
+
+}
