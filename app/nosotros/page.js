@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import HeroNosotros from "../components/nosotros/HeroNosotros";
 import Historia from "../components/nosotros/Historia";
 import Timeline from "../components/nosotros/Timeline";
