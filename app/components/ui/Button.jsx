@@ -1,31 +1,54 @@
 import Link from "next/link";
 
+const variants = {
+  primary:
+    "bg-[#0F4C81] text-white hover:bg-[#0A3A63] shadow-lg hover:shadow-xl",
+
+  secondary:
+    "border border-slate-300 bg-white text-slate-800 hover:bg-slate-50",
+
+  outline:
+    "border border-white text-white hover:bg-white hover:text-[#0F4C81]",
+};
+
+const sizes = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg",
+};
+
 export default function Button({
-  href,
   children,
+  href,
   variant = "primary",
+  size = "md",
   className = "",
+  ...props
 }) {
-  const base =
-    "inline-flex items-center justify-center rounded-xl px-7 py-4 font-semibold transition-all duration-300";
+  const classes = `
+    inline-flex
+    items-center
+    justify-center
+    rounded-xl
+    font-semibold
+    transition-all
+    duration-300
+    ${variants[variant]}
+    ${sizes[size]}
+    ${className}
+  `;
 
-  const variants = {
-    primary:
-      "bg-[#0F4C81] text-white hover:bg-[#0A3A63] shadow-lg hover:shadow-xl",
-
-    secondary:
-      "border border-white/30 text-white hover:bg-white hover:text-slate-900",
-
-    outline:
-      "border border-[#0F4C81] text-[#0F4C81] hover:bg-[#0F4C81] hover:text-white",
-  };
+  if (href) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
 
   return (
-    <Link
-      href={href}
-      className={`${base} ${variants[variant]} ${className}`}
-    >
+    <button className={classes} {...props}>
       {children}
-    </Link>
+    </button>
   );
 }

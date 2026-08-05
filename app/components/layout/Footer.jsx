@@ -1,47 +1,123 @@
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  ArrowUpRight,
+} from "lucide-react";
+
+import Container from "@/app/components/ui/Container";
+import { company } from "@/app/lib/company";
+
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-slate-950 text-white">
 
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <Container className="py-20">
 
-        <div className="grid md:grid-cols-4 gap-10">
+        <div className="grid gap-12 lg:grid-cols-4">
 
           {/* Empresa */}
 
           <div>
 
-            <h2 className="text-2xl font-bold mb-4">
-              CONREV
-            </h2>
+            <Image
+              src="/images/logo/logo-conrev-light.png"
+              alt={company.shortName}
+              width={220}
+              height={60}
+              className="h-auto"
+            />
 
-            <p className="text-gray-300 leading-7">
-              Contadores y Revisores S.A.S.
-            </p>
-
-            <p className="text-gray-400 mt-4">
-              Su confianza,
-              nuestro mayor compromiso.
+            <p className="mt-6 leading-7 text-slate-300">
+              Información confiable para decisiones inteligentes.
+              Somos una firma especializada en contabilidad,
+              auditoría, revisoría fiscal y consultoría empresarial.
             </p>
 
           </div>
 
-          {/* Soluciones */}
+          {/* Servicios */}
 
           <div>
 
-            <h3 className="font-bold text-lg mb-4">
-              Soluciones
+            <h3 className="text-xl font-bold">
+              Servicios
             </h3>
 
-            <ul className="space-y-3 text-gray-300">
+            <ul className="mt-6 space-y-3 text-slate-300">
 
-              <li>Contabilidad Empresarial</li>
-
-              <li>Asesoría Tributaria</li>
+              <li>Contabilidad</li>
 
               <li>Revisoría Fiscal</li>
 
-              <li>Gestión Laboral</li>
+              <li>Auditoría</li>
+
+              <li>Asesoría Tributaria</li>
+
+              <li>Consultoría Empresarial</li>
+
+            </ul>
+
+          </div>
+
+          {/* Navegación */}
+
+          <div>
+
+            <h3 className="text-xl font-bold">
+              Navegación
+            </h3>
+
+            <ul className="mt-6 space-y-3">
+
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-blue-300 transition"
+                >
+                  Inicio
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/nosotros"
+                  className="hover:text-blue-300 transition"
+                >
+                  Nosotros
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/servicios"
+                  className="hover:text-blue-300 transition"
+                >
+                  Servicios
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/recursos"
+                  className="hover:text-blue-300 transition"
+                >
+                  Recursos
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/contacto"
+                  className="hover:text-blue-300 transition"
+                >
+                  Contacto
+                </Link>
+              </li>
 
             </ul>
 
@@ -51,50 +127,96 @@ export default function Footer() {
 
           <div>
 
-            <h3 className="font-bold text-lg mb-4">
-              Contacto
+            <h3 className="text-xl font-bold">
+              Contáctenos
             </h3>
 
-            <ul className="space-y-3 text-gray-300">
+            <div className="mt-6 space-y-5">
 
-              <li>📞 302 344 9702</li>
+              <div className="flex items-start gap-3">
 
-              <li>✉ info@conrev.com.co</li>
+                <Phone
+                  size={20}
+                  className="mt-1 text-[#0F4C81]"
+                />
 
-              <li>📍 Medellín - Colombia</li>
+                <span>
+                  {company.contact.phone}
+                </span>
 
-            </ul>
+              </div>
 
-          </div>
+              <div className="flex items-start gap-3">
 
-          {/* Redes */}
+                <Mail
+                  size={20}
+                  className="mt-1 text-[#0F4C81]"
+                />
 
-          <div>
+                <span>
+                  {company.contact.email}
+                </span>
 
-            <h3 className="font-bold text-lg mb-4">
-              Síguenos
-            </h3>
+              </div>
 
-            <ul className="space-y-3 text-gray-300">
+              <div className="flex items-start gap-3">
 
-              <li>Facebook</li>
+                <MapPin
+                  size={20}
+                  className="mt-1 text-[#0F4C81]"
+                />
 
-              <li>Instagram</li>
+                <span>
+                  {company.contact.address}
+                </span>
 
-              <li>LinkedIn</li>
+              </div>
 
-            </ul>
+            </div>
+
+            <Link
+              href="/contacto"
+              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#0F4C81] px-6 py-3 font-semibold transition hover:bg-blue-700"
+            >
+              Solicitar asesoría
+
+              <ArrowUpRight size={18} />
+
+            </Link>
 
           </div>
 
         </div>
 
-        <div className="border-t border-slate-700 mt-12 pt-8 text-center text-gray-400">
+      </Container>
 
-          © 2026 CONREV Contadores y Revisores S.A.S.
-          Todos los derechos reservados.
+      <div className="border-t border-slate-800">
 
-        </div>
+        <Container className="flex flex-col items-center justify-between gap-4 py-6 text-sm text-slate-400 lg:flex-row">
+
+          <p>
+            © {year} {company.name}. Todos los derechos reservados.
+          </p>
+
+          <div className="flex gap-6">
+
+            <Link
+              href="/politica-privacidad"
+              className="hover:text-white transition"
+            >
+              Política de privacidad
+            </Link>
+
+            <Link
+              href="/terminos"
+              className="hover:text-white transition"
+            >
+              Términos y condiciones
+            </Link>
+
+          </div>
+
+        </Container>
 
       </div>
 

@@ -1,142 +1,76 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-
 import { company } from "@/app/lib/company";
 import { navigation } from "@/app/lib/navigation";
 import Button from "@/app/components/ui/Button";
+import Container from "@/app/components/ui/Container";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [scrolled,setScrolled]=useState(false);
+  const [menuOpen,setMenuOpen]=useState(false);
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
+  useEffect(()=>{
+    const h=()=>setScrolled(window.scrollY>40);
+    h();
+    window.addEventListener("scroll",h);
+    return ()=>window.removeEventListener("scroll",h);
+  },[]);
 
-    window.addEventListener("scroll", onScroll);
+  useEffect(()=>{
+    document.body.style.overflow=menuOpen?"hidden":"";
+    return ()=>{document.body.style.overflow="";};
+  },[menuOpen]);
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useEffect(()=>{setMenuOpen(false);},[pathname]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white shadow-lg py-3"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <>
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled?"bg-white/95 backdrop-blur-xl shadow-lg py-4":"bg-transparent py-8"}`}>
+        <Container className="flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src={scrolled?"/images/logo/logo-conrev-dark.png":"/images/logo/logo-conrev-light.png"} alt={company.shortName} width={220} height={58} priority className="h-auto w-[170px] lg:w-[220px]" />
+          </Link>
 
-        {/* Logo */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navigation.map((item)=>{
+              const active=pathname===item.href;
+              return <Link key={item.href} href={item.href} className={active?"font-semibold text-[#0F4C81]":(scrolled?"text-slate-700 hover:text-[#0F4C81]":"text-white hover:text-blue-200")}>{item.title}</Link>;
+            })}
+          </nav>
 
-        <Link href="/" className="flex items-center gap-3">
-
-          <Image
-            src="/images/logo/logo-conrev3.png"
-            alt={company.name}
-            width={56}
-            height={56}
-          />
-
-          <div>
-
-            <h2
-              className={`font-black text-lg ${
-                scrolled ? "text-slate-900" : "text-white"
-              }`}
-            >
-              CONREV
-            </h2>
-
-            <p
-              className={`text-sm ${
-                scrolled ? "text-slate-500" : "text-slate-200"
-              }`}
-            >
-              Contadores y Revisores
-            </p>
-
+          <div className="hidden lg:block">
+            <Button href="/contacto">Solicitar asesoría</Button>
           </div>
 
-        </Link>
+          <button className="lg:hidden" onClick={()=>setMenuOpen(true)} aria-label="Abrir menú">
+            <Menu className={scrolled?"text-slate-900":"text-white"} />
+          </button>
+        </Container>
+      </header>
 
-        {/* Menú escritorio */}
-
-        <nav className="hidden lg:flex items-center gap-8">
-
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`font-medium transition hover:text-[#0F4C81] ${
-                scrolled ? "text-slate-700" : "text-white"
-              }`}
-            >
-              {item.title}
-            </Link>
-          ))}
-
-        </nav>
-
-        {/* Botón escritorio */}
-
-        <div className="hidden lg:block">
-          <Button href="/contacto">
-            Solicitar asesoría
-          </Button>
-        </div>
-
-        {/* Botón móvil */}
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="lg:hidden"
-        >
-          {open ? (
-            <X
-              className={scrolled ? "text-slate-900" : "text-white"}
-            />
-          ) : (
-            <Menu
-              className={scrolled ? "text-slate-900" : "text-white"}
-            />
-          )}
-        </button>
-
-      </div>
-
-      {/* Menú móvil */}
-
-      {open && (
-        <div className="lg:hidden bg-white shadow-xl">
-
-          <div className="px-6 py-6 flex flex-col gap-5">
-
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="text-slate-700 font-medium"
-              >
-                {item.title}
-              </Link>
-            ))}
-
-            <Button href="/contacto">
-              Solicitar asesoría
-            </Button>
-
+      {menuOpen && <>
+        <div className="fixed inset-0 z-40 bg-black/40" onClick={()=>setMenuOpen(false)} />
+        <aside className="fixed top-0 right-0 z-50 h-screen w-80 bg-white shadow-2xl">
+          <div className="flex items-center justify-between border-b p-6">
+            <h3 className="font-bold">{company.shortName}</h3>
+            <button onClick={()=>setMenuOpen(false)}><X/></button>
           </div>
-
-        </div>
-      )}
-    </header>
+          <div className="flex flex-col gap-6 p-6">
+            {navigation.map(item=><Link key={item.href} href={item.href} className="text-lg text-slate-700">{item.title}</Link>)}
+            <Button href="/contacto" className="w-full">Solicitar asesoría</Button>
+            <div className="border-t pt-6 text-sm text-slate-600">
+              <p>{company.contact.phone}</p>
+              <p>{company.contact.email}</p>
+              <p>{company.contact.address}</p>
+            </div>
+          </div>
+        </aside>
+      </>}
+    </>
   );
 }

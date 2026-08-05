@@ -1,27 +1,70 @@
 @import "tailwindcss";
 
-/* ==========================
+/* ==========================================================
    CONREV DESIGN SYSTEM
-========================== */
+========================================================== */
 
 :root {
 
-  /* Colores */
+  /* ========= Marca ========= */
 
   --color-primary: #0B5E8E;
-  --color-primary-dark: #094c73;
+  --color-primary-dark: #094C73;
+  --color-primary-light: #DCEFFA;
 
-  --color-background: #ffffff;
+  /* ========= Fondos ========= */
+
+  --color-background: #FFFFFF;
   --color-background-light: #F8FAFC;
+  --color-background-dark: #0F172A;
+
+  /* ========= Texto ========= */
 
   --color-text: #1E293B;
   --color-text-light: #64748B;
+  --color-text-white: #FFFFFF;
+
+  /* ========= Bordes ========= */
+
+  --color-border: #E2E8F0;
+
+  /* ========= Estados ========= */
+
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-danger: #DC2626;
+
+  /* ========= Sombras ========= */
+
+  --shadow-sm: 0 2px 8px rgba(15,23,42,.05);
+
+  --shadow-md: 0 10px 30px rgba(15,23,42,.08);
+
+  --shadow-lg: 0 20px 60px rgba(15,23,42,.12);
+
+  /* ========= Radios ========= */
+
+  --radius-sm: .75rem;
+
+  --radius-md: 1rem;
+
+  --radius-lg: 1.5rem;
+
+  --radius-xl: 2rem;
 
 }
 
-/* ==========================
-   ESTILOS GENERALES
-========================== */
+/* ==========================================================
+   RESET
+========================================================== */
+
+*,
+*::before,
+*::after {
+
+  box-sizing: border-box;
+
+}
 
 html {
 
@@ -31,29 +74,17 @@ html {
 
 body {
 
+  margin: 0;
+
   background: var(--color-background);
 
   color: var(--color-text);
 
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+
+  overflow-x: hidden;
 
 }
-
-/* ==========================
-   SELECCIÓN DE TEXTO
-========================== */
-
-::selection {
-
-  background: var(--color-primary);
-
-  color: white;
-
-}
-
-/* ==========================
-   IMÁGENES
-========================== */
 
 img {
 
@@ -65,22 +96,56 @@ img {
 
 }
 
-/* ==========================
-   ENLACES
-========================== */
-
 a {
+
+  color: inherit;
 
   text-decoration: none;
 
 }
 
-/* ==========================
-   BOTONES
-========================== */
-
 button {
 
   cursor: pointer;
+
+  font: inherit;
+
+}
+
+::selection {
+
+  background: var(--color-primary);
+
+  color: white;
+
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar {
+
+  width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+
+  background: #f1f5f9;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+  background: var(--color-primary);
+
+  border-radius: 20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+  background: var(--color-primary-dark);
 
 }
